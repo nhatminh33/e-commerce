@@ -3,6 +3,9 @@ npm i apexcharts react-apexcharts axios jwt-decode moment react-hot-toast react-
 npm install -D tailwindcss
 npx tailwindcss init
 
+npm i react-router-dom
+npm install react-icons --save
+
 apexcharts & react-apexcharts: Thư viện biểu đồ.
 axios: Thư viện HTTP client.
 jwt-decode: Giải mã JWT.
