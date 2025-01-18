@@ -6,6 +6,7 @@ const bcrpty = require('bcrypt')
 const { createToken } = require('../utiles/tokenCreate')
 
 class authControllers {
+
     admin_login = async (req, res) => {
         const { email, password } = req.body
         try {
@@ -42,38 +43,39 @@ class authControllers {
     // End Method 
 
 
-    seller_login = async(req,res) => {
-        const {email,password} = req.body
+    seller_login = async (req, res) => {
+        const { email, password } = req.body
         try {
-            const seller = await sellerModel.findOne({email}).select('+password')
+            const seller = await sellerModel.findOne({ email }).select('+password')
             // console.log(admin)
             if (seller) {
                 const match = await bcrpty.compare(password, seller.password)
                 // console.log(match)
                 if (match) {
                     const token = await createToken({
-                        id : seller.id,
-                        role : seller.role
+                        id: seller.id,
+                        role: seller.role
                     })
-                    res.cookie('accessToken',token,{
-                        expires : new Date(Date.now() + 7*24*60*60*1000 )
-                    }) 
-                    responseReturn(res,200,{token,message: "Login Success"})
+                    res.cookie('accessToken', token, {
+                        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+                    })
+                    responseReturn(res, 200, { token, message: "Login Success" })
                 } else {
-                    responseReturn(res,404,{error: "Password Wrong"})
+                    responseReturn(res, 404, { error: "Password Wrong" })
                 }
- 
-                 
+
+
             } else {
-                responseReturn(res,404,{error: "Email not Found"})
+                responseReturn(res, 404, { error: "Email not Found" })
             }
-            
+
         } catch (error) {
-            responseReturn(res,500,{error: error.message})
+            responseReturn(res, 500, { error: error.message })
         }
- 
+
     }
     // End Method 
+
 
     seller_register = async (req, res) => {
         const { email, name, password } = req.body
@@ -120,11 +122,12 @@ class authControllers {
                 const user = await adminModel.findById(id)
                 responseReturn(res, 200, { userInfo: user })
             } else {
-                console.log('Seller Info')
+                const seller = await sellerModel.findById(id)
+                responseReturn(res, 200, { userInfo: seller })
             }
 
         } catch (error) {
-            console.log(error.message)
+            responseReturn(res, 500, { error: 'Internal Server Error' })
         }
 
 

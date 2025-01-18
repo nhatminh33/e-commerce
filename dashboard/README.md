@@ -38,6 +38,9 @@ socket.io: Thư viện để thiết lập WebSocket, hỗ trợ giao tiếp th�
 stripe: Thư viện tích hợp cổng thanh toán Stripe.
 uuid: Thư viện để tạo UUID (Unique Identifier).
 
+npm uninstall formidable
+npm install formidable@2.1.1
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
