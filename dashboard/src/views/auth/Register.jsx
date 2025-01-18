@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { seller_register } from "../../store/Reducers/authReducer";
-import { overrideStyle } from "../../utils/utils";
 import { PropagateLoader } from "react-spinners";
+import { overrideStyle } from "../../utils/utils";
+import {
+  seller_register,
+  messageClear,
+} from "../../store/Reducers/authReducer";
+import toast from "react-hot-toast";
 
 const Register = () => {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-  const {loader} = useSelector(state=>state.auth)
+  const { loader, successMessage, errorMessage } = useSelector(
+    (state) => state.auth
+  );
 
   const [state, setState] = useState({
     name: "",
@@ -27,8 +33,19 @@ const Register = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    dispatch(seller_register(state))
+    dispatch(seller_register(state));
   };
+
+  useEffect(() => {
+    if (successMessage) {
+      toast.success(successMessage);
+      dispatch(messageClear());
+    }
+    if (errorMessage) {
+      toast.error(errorMessage);
+      dispatch(messageClear());
+    }
+  }, [successMessage, errorMessage]);
 
   return (
     <div className="min-w-screen min-h-screen bg-[#cdcae9] flex justify-center items-center">
@@ -38,6 +55,7 @@ const Register = () => {
           <p className="text-sm mb-3 font-medium">
             Please register your account
           </p>
+
           <form onSubmit={submit}>
             <div className="flex flex-col w-full gap-1 mb-3">
               <label htmlFor="name">Name</label>
@@ -66,6 +84,7 @@ const Register = () => {
                 required
               />
             </div>
+
             <div className="flex flex-col w-full gap-1 mb-3">
               <label htmlFor="password">Password</label>
               <input
@@ -79,6 +98,7 @@ const Register = () => {
                 required
               />
             </div>
+
             <div className="flex items-center w-full gap-3 mb-3">
               <input
                 className="w-4 h-4 text-blue-600 overflow-hidden bg-gray-200 rounded border-gray-300 focus:ring-blue-500"
@@ -91,11 +111,18 @@ const Register = () => {
                 I agree to privacy policy & treams
               </label>
             </div>
-            <button disabled={loader ? true : false}  className='bg-slate-800 w-full hover:shadow-blue-300/ hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>
-            {
-               loader ? <PropagateLoader color='#fff' cssOverride={overrideStyle} /> : 'Sign Up'
-            } 
+
+            <button
+              disabled={loader ? true : false}
+              className="bg-slate-800 w-full hover:shadow-blue-300/ hover:shadow-lg text-white rounded-md px-7 py-2 mb-3"
+            >
+              {loader ? (
+                <PropagateLoader color="#fff" cssOverride={overrideStyle} />
+              ) : (
+                "Sign Up"
+              )}
             </button>
+
             <div className="flex items-center mb-3 gap-3 justify-center">
               <p>
                 Already Have an account ?{" "}
@@ -119,6 +146,7 @@ const Register = () => {
                   <FaGoogle />
                 </span>
               </div>
+
               <div className="w-[135px] h-[35px] flex rounded-md bg-blue-700 shadow-lg hover:shadow-blue-700/50 justify-center cursor-pointer items-center overflow-hidden">
                 <span>
                   <FaFacebook />
