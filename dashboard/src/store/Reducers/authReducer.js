@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../api/api";
 
+//quan ly dang nhap
 export const admin_login = createAsyncThunk(
     'auth/admin_login',
     async(info,{rejectWithValue, fulfillWithValue}) => {
@@ -17,6 +18,24 @@ export const admin_login = createAsyncThunk(
         }
     }
 )
+
+// nguoi ban hang dang ky
+export const seller_register = createAsyncThunk(
+    'auth/seller_register',
+    async(info,{rejectWithValue, fulfillWithValue}) => { 
+        try {
+            console.log(info)
+            const {data} = await api.post('/seller-register',info,{withCredentials: true})
+            // localStorage.setItem('accessToken',data.token)
+             console.log(data)
+            return fulfillWithValue(data)
+        } catch (error) {
+            // console.log(error.response.data)
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+ 
 
 export const authReducer = createSlice({
     name: 'auth',
