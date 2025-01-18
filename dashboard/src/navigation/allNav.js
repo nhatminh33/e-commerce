@@ -60,6 +60,6 @@ export const allNav = [
         title : 'Live Chat (Trò chuyện trực tuyến)',
         icon : <IoIosChatbubbles />,
         role : 'admin',
-        path: '/admin/dashboard/chat-seller'
+        path: '/admin/dashboard/chat-sellers'
     }
 ]
