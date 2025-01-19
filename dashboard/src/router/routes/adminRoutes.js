@@ -1,6 +1,6 @@
 import { lazy } from "react";
-import ChatSeller from "../../views/admin/ChatSeller";
-import OrderDetails from "../../views/admin/OrderDetails";
+const ChatSeller = lazy(()=> import('../../views/admin/ChatSeller'))   
+const OrderDetails = lazy(()=> import('../../views/admin/OrderDetails'))  
 const AdminDashboard = lazy(() => import('../../views/admin/AdminDashboard'))
 const Orders = lazy(() => import('../../views/admin/Orders'))
 const Category = lazy(() => import('../../views/admin/Category'))

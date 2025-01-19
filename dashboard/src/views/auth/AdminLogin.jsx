@@ -6,26 +6,34 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
+  //tuong tac vs redux store
   const dispatch = useDispatch();
   const {loader,errorMessage, successMessage} = useSelector(state=>state.auth)
 
-  
+  //dieu huong
   const navigate = useNavigate()
+
+  //thiet lap state email, password
   const [state, setState] = useState({
     email: "",
     password: "",
   });
+
+  //thay đổi input form login
   const inputHandle = (e) => {
     setState({
       ...state,
       [e.target.name]: e.target.value,
     });
   };
+
+  //xử lý khi submit form 
   const submit = (e) => {
     e.preventDefault();
     dispatch(admin_login(state));
   };
 
+  
   const overrideStyle = {
     display : 'flex',
     margin : '0 auto',
@@ -34,6 +42,7 @@ const AdminLogin = () => {
     alignItems : 'center'
 }
 
+//theo dõi errorMessage và successMessage từ redux store
 useEffect(() => {
   if (errorMessage) {
       toast.error(errorMessage)

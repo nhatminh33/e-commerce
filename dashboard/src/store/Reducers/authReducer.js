@@ -7,8 +7,8 @@ export const admin_login = createAsyncThunk(
     async (info, { rejectWithValue, fulfillWithValue }) => {
         console.log(info)
         try {
-            const { data } = await api.post('/admin-login', info, { withCredentials: true })
-            localStorage.setItem('accessToken', data.token)
+            const { data } = await api.post('/admin-login', info, { withCredentials: true }) //bật withCredentials để gửi cookies trong request
+            localStorage.setItem('accessToken', data.token) //token được lưu vào localStorage 
             // console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
@@ -67,6 +67,7 @@ export const seller_register = createAsyncThunk(
     }
 )
 
+//Xử lý token
 const returnRole = (token) => {
     if (token) {
         const decodeToken = jwtDecode(token)
@@ -103,18 +104,21 @@ export const authReducer = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            //bắt đầu gọi API (pending) 
             .addCase(admin_login.pending, (state, { payload }) => {
-                state.loader = true;
+                state.loader = true; // Bật trạng thái loading
             })
+            //API trả về lỗi (rejected)
             .addCase(admin_login.rejected, (state, { payload }) => {
-                state.loader = false;
-                state.errorMessage = payload.error
+                state.loader = false; // Tắt loading
+                state.errorMessage = payload.error // Lưu message lỗi
             })
+            //API thành công (fulfilled) lưu vào redux store
             .addCase(admin_login.fulfilled, (state, { payload }) => {
                 state.loader = false;
-                state.successMessage = payload.message
-                state.token = payload.token
-                state.role = returnRole(payload.token)
+                state.successMessage = payload.message // Lưu message thành công
+                state.token = payload.token // Lưu token 
+                state.role = returnRole(payload.token) // Xử lý và lưu role từ token
             })
 
             .addCase(seller_login.pending, (state, { payload }) => {
