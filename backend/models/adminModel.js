@@ -1,4 +1,5 @@
 const {Schema, model} = require("mongoose");
+
 const adminSchema = new Schema({
     name: {
         type: String,
@@ -21,4 +22,5 @@ const adminSchema = new Schema({
         default : 'admin'
     },
 })
+
 module.exports = model('admins',adminSchema)

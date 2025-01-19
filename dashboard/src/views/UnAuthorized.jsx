@@ -1,4 +1,5 @@
 import React from 'react';
+
 const UnAuthorized = () => {
     return (
         <div>
@@ -6,4 +7,5 @@ const UnAuthorized = () => {
         </div>
     );
 };
+
 export default UnAuthorized;

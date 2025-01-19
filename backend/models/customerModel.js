@@ -1,4 +1,5 @@
 const {Schema, model} = require("mongoose");
+
 const customerSchema = new Schema({
     name: {
         type: String,
@@ -18,4 +19,5 @@ const customerSchema = new Schema({
         required : true
     }, 
 },{ timestamps: true })
+
 module.exports = model('customers',customerSchema)

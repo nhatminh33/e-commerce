@@ -1,4 +1,5 @@
 const {Schema, model} = require("mongoose");
+
 const reviewSchema = new Schema({
     productId: {
         type: Schema.ObjectId,
@@ -21,4 +22,5 @@ const reviewSchema = new Schema({
         required : true
     } 
 },{ timestamps: true })
+
 module.exports = model('reviews',reviewSchema)

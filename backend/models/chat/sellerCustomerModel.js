@@ -1,4 +1,5 @@
 const {Schema, model} = require("mongoose");
+
 const sellerCustomerSchema = new Schema({
     myId: {
         type: String,
@@ -10,4 +11,5 @@ const sellerCustomerSchema = new Schema({
     } 
      
 }, {timestamps: true})
+
 module.exports = model('seller_customers',sellerCustomerSchema)

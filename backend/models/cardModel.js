@@ -1,4 +1,5 @@
 const {Schema, model} = require("mongoose");
+
 const cardSchema = new Schema({
     userId: {
         type: Schema.ObjectId,
@@ -13,4 +14,5 @@ const cardSchema = new Schema({
         required : true, 
     } 
 },{ timestamps: true })
+
 module.exports = model('cardProducts',cardSchema)
